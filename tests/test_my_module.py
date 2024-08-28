@@ -1,6 +1,5 @@
 import pytest
 from src.my_module import add, subtract
-@pytest.fixture
 def test_add():
     assert add(2, 3) == 5
     assert add(-1, 1) == 0
