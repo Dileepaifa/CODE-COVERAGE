@@ -44,10 +44,4 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      run: |
-          -Dsonar.projectKey=my_python_project \
-          -Dsonar.sources=src \
-          -Dsonar.tests=tests \
-          -Dsonar.exclusions=**/__pycache__/**,**/*.pyc \
-          -Dsonar.test.inclusions=tests/**/*.py \
-          -Dsonar.python.coverage.reportPaths=coverage.xml
+      
