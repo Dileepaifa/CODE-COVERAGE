@@ -15,9 +15,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  
-    - uses: sonarsource/sonarqube-scan-action@master
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -27,21 +25,26 @@ jobs:
       run: |
         pip install -r requirements.txt
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=src" >> $GITHUB_ENV      
+      run: echo "PYTHONPATH=src" >> $GITHUB_ENV    
+
     - name: Run tests with coverage
       run: |
         coverage run -m pytest
         coverage report
         coverage xml
+
+    - name: SonarQube Scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      run: |
+        sonar-scanner \
+          -Dsonar.projectKey=my_python_project \
+          -Dsonar.sources=src 
+          -Dsonar.python.coverage.reportPaths=coverage.xml
+
     - name: Upload coverage to GitHub
       uses: actions/upload-artifact@v3
       with:
         name: coverage-report
         path: coverage.xml
-    
-    - name: SonarQube Scan
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      
-    
