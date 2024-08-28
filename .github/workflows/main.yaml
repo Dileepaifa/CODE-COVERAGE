@@ -33,11 +33,15 @@ jobs:
         coverage run -m pytest
         coverage report
         coverage xml
-
+    - name: Upload coverage to GitHub
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage.xml
+    
     - name: SonarQube Scan
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-     
-
+      
     
