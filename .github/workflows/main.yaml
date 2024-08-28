@@ -46,7 +46,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       run: |
-        ./sonar-scanner/bin/sonar-scanner -x \
+        ./sonar-scanner/bin/sonar-scanner -X \
           -Dsonar.projectKey=my_python_project \
           -Dsonar.sources=src \
           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
