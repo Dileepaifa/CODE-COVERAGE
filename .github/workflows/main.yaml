@@ -33,6 +33,7 @@ jobs:
         coverage run -m pytest
         coverage report
         coverage xml
+        
     - name: Upload coverage to GitHub
       uses: actions/upload-artifact@v3
       with:
